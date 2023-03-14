@@ -1,0 +1,24 @@
+
+from math import factorial
+from math import e
+#Declaro constantes simples
+xi=0.45
+xi_1=0.455
+h=0.005
+#Una variable donde guardar y¿un valor anterior 
+v_ant = 0
+#Simplemente donde guardar el valor de la serie
+operacion = 0
+for i in range(16):
+  #Este if me sirve para ir varinado entrte negativo y positivo
+    if i % 2 ==0:
+        operacion+= (e**(-xi)/factorial(i))*h**i
+    else:
+        operacion -= (e**(-xi)/factorial(i)*h**i)
+#error aproximado
+    ea=abs((operacion-v_ant)/operacion)*100
+  #Declaramos el valor de la anterior operacion al valor de la operacion
+    v_ant=operacion
+    print("orden",i)
+    print("Resultado",operacion)
+    print("error",ea,"%")
