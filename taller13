@@ -1,0 +1,74 @@
+# Pedir al usuario las dimensiones de la matriz A
+fila_a = int(input("Ingrese el número de filas de la matriz A: "))
+col_a = int(input("Ingrese el número de columnas de la matriz A: "))
+
+# Pedir al usuario las dimensiones de la matriz B
+fila_b = int(input("Ingrese el número de filas de la matriz B: "))
+col_b = int(input("Ingrese el número de columnas de la matriz B: "))
+
+# Verificar si se pueden sumar o multiplicar las matrices
+if col_a != fila_b:
+    print("No se pueden sumar o multiplicar las matrices porque el número de columnas de A es diferente al número de filas de B.")
+else:
+    # Pedir al usuario los elementos de la matriz A
+    print("Ingrese los elementos de la matriz A (separados por espacios):")
+    matriz_a = []
+    for i in range(fila_a):
+        fila = input().split()
+        while len(fila) != col_a:
+            print("La cantidad de elementos ingresados es incorrecta. Intente nuevamente.")
+            fila = input().split()
+        matriz_a.append([float(x) for x in fila])
+
+    # Pedir al usuario los elementos de la matriz B
+    print("Ingrese los elementos de la matriz B (separados por espacios):")
+    matriz_b = []
+    for i in range(fila_b):
+        fila = input().split()
+        while len(fila) != col_b:
+            print("La cantidad de elementos ingresados es incorrecta. Intente nuevamente.")
+            fila = input().split()
+        matriz_b.append([float(x) for x in fila])
+
+    # Realizar la suma de las matrices
+    matriz_suma = []
+    for i in range(fila_a):
+        fila_suma = []
+        for j in range(col_a):
+            fila_suma.append(matriz_a[i][j] + matriz_b[i][j])
+        matriz_suma.append(fila_suma)
+
+    # Imprimir la matriz suma
+    print("Matriz A + Matriz B = ")
+    for fila in matriz_suma:
+        print(fila)
+
+    # Realizar la multiplicación de las matrices
+    matriz_mult = []
+    for i in range(fila_a):
+        fila_mult = []
+        for j in range(col_b):
+            elemento_mult = 0
+            for k in range(col_a):
+                elemento_mult += matriz_a[i][k] * matriz_b[k][j]
+            fila_mult.append(elemento_mult)
+        matriz_mult.append(fila_mult)
+
+    # Imprimir la matriz multiplicación
+    print("Matriz A * Matriz B = ")
+    for fila in matriz_mult:
+        print(fila)
+  # Multiplicacion de 3 por la matriz A:
+  # Definir el escalar
+escalar = 3
+escalar4 = 4
+# Multiplicar la matriz por el escalar
+matriz_resultado = [[escalar * elemento for elemento in fila] for fila in matriz_a]
+# Multiplicar la matriz por 4 
+matriz_resultado4 = [[escalar4 * elemento for elemento in fila] for fila in matriz_b]
+print("3A")
+for fila in matriz_resultado:
+        print(fila)
+print("4B")
+for fila in matriz_resultado4:
+        print(fila)
