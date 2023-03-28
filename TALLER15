@@ -1,0 +1,84 @@
+public class GaussJordan {
+    public static void main(String[] args) {
+        double[][] matrix = {{3, 2, 2}, {3, 1, -3}, {1, 0, -2}};
+        double[][] matrixDos = {{1, 2, 0, 4}, {2, 0, -1, -2}, {1, 1, -1, 0},{0, 4, 1, 0}};
+         
+        int n = matrix.length;
+        double[][] inverse = new double[n][n];
+
+        // Una matriz donde guardar la matriz inversa
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                inverse[i][j] = i == j ? 1.0 : 0.0;
+            }
+        }
+
+        // En forma escalonada
+        for (int i = 0; i < n; i++) {
+            // Usamos los pivotes de el codigo anterior
+            int pivot = i;
+            for (int j = i + 1; j < n; j++) {
+                if (Math.abs(matrix[j][i]) > Math.abs(matrix[pivot][i])) {
+                    pivot = j;
+                }
+            }
+            if (pivot != i) {
+                double[] temp = matrix[i];
+                matrix[i] = matrix[pivot];
+                matrix[pivot] = temp;
+                temp = inverse[i];
+                inverse[i] = inverse[pivot];
+                inverse[pivot] = temp;
+            }
+
+            // dividir el pivote 
+            double pivotElement = matrix[i][i];
+            for (int j = i; j < n; j++) {
+                matrix[i][j] /= pivotElement;
+            }
+            for (int j = 0; j < n; j++) {
+                inverse[i][j] /= pivotElement;
+            }
+
+            // Restar la fila pivote de todas las demás filas para crear ceros debajo del elemento pivote
+            for (int j = i + 1; j < n; j++) {
+                double multiplier = matrix[j][i];
+                for (int k = i; k < n; k++) {
+                    matrix[j][k] -= multiplier * matrix[i][k];
+                }
+                for (int k = 0; k < n; k++) {
+                    inverse[j][k] -= multiplier * inverse[i][k];
+                }
+            }
+        }
+
+        // Realiza operaciones de fila para transformar la matriz en forma escalonada de fila reducida
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i - 1; j >= 0; j--) {
+                //esta matriz es como de ayuda
+                double multiplier = matrix[j][i];
+                for (int k = 0; k < n; k++) {
+                    inverse[j][k] -= multiplier * inverse[i][k];
+                }
+            }
+        }
+
+        // mprimir
+        System.out.println("Original Matrix:");
+        printMatrix(matrix);
+        System.out.println("Inverse Matrix:");
+        printMatrix(inverse);
+    }
+    //2 matriz
+    
+    
+    private static void printMatrix(double[][] matrix) {
+        //lamar la funcion
+        for (double[] row : matrix) {
+            for (double value : row) {
+                System.out.print(value + " ");
+            }
+            System.out.println();
+        }
+    }
+}
