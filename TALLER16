@@ -1,0 +1,49 @@
+import java.util.Arrays;
+public class Tendencia_Lineal {
+    public static void main(String[] args) {
+        double[] y = {3.5, 2.5, 3, 1.5, 2, 1.3, 1, 0.3}; // valores de la variable independiente
+        double[] x = {0, 1, 2, 3, 4, 5, 6, 7}; // valores de la variable dependiente
+        //Cuadrado de cada X:
+        double cuadradoX=0;
+        for(int i=0;i<x.length;i++){
+            cuadradoX += (x[i])*(x[i]);
+        }
+        //Smatoria X
+        double sumX=0;
+        for(int i=0;i<x.length;i++){
+            sumX = sumX+x[i];
+        }
+        //suma xy
+        double sumaXY=0;
+        for(int i=0;i<x.length;i++){
+            sumaXY += (x[i])*(y[i]);
+        }
+        
+        
+        //Sumatoria de Y
+        double sumY=0;
+        for(int i=0;i<y.length;i++){
+            sumY = sumY+y[i];
+        }
+        System.out.println(sumX*sumY);
+        
+        //Calcular a1:
+        double a1=0;
+        a1 = ((x.length)*(sumaXY)-(sumX*sumY))/( x.length*cuadradoX-((sumX)*(sumX)));
+        System.out.println("a1 es: "+a1);
+        // calcular la media de los valores de x e y
+        double xProm = Arrays.stream(x).average().getAsDouble();
+        double yProm = Arrays.stream(y).average().getAsDouble();
+  
+        
+      // Calcular a0:
+      double a0=0;
+      a0 = yProm-a1*xProm;
+        
+        //
+        // imprimir los resultados
+        System.out.println("La ecuación de la línea de regresión es: y = " + a1 + " x + " + a0);
+    }
+
+}
+
