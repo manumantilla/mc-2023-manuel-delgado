@@ -1,0 +1,19 @@
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.array([2,4,6,8,10,12])
+y = np.array([2.2,3,4.5,6,8.5,12])
+lny = np.log(y)
+n = len(x)
+sumax= sum(x)
+sumay= sum(lny)
+sumaxy=sum(x*lny)
+sumax2=sum(x**2)
+promy=sumay/len(lny)
+promx=sumax/len(x)
+a1=((n*sumaxy)-((sumax)*(sumay)))/((n*sumax2)-((sumax)**2))
+a0=promy - (a1*promx)
+alf = np.exp(a0)
+beta = a1
+def regresion(x):
+  return alf * np.exp(beta)
+print("La ecuación relacional no lineal de ", x , " y ",lny, " es y = ",alf," e^", beta,"x ")
