@@ -1,0 +1,38 @@
+
+import java.util.Scanner;
+/*package com.mycompany.sad;*/
+public class PolinomioSegGrado {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Definir los arreglos para los datos de la tabla
+        double[] x = {0, 1, 2, 3, 4, 5, 6};
+        double[] y = {4.2, 1.4, 0, -0.4, -0.1, 1.6, 4.1};
+
+        // Calcular la suma de los valores de x, y, x^2, y^2, y xy
+        double sum_x = 0, sum_y = 0, sum_x_squared = 0, sum_y_squared = 0, sum_xy = 0;
+
+        for (int i = 0; i < x.length; i++) {
+            sum_x += x[i];
+            sum_y += y[i];
+            sum_x_squared += Math.pow(x[i], 2);
+            sum_y_squared += Math.pow(y[i], 2);
+            sum_xy += x[i] * y[i];
+        }
+
+        // Calcular los coeficientes a, b, y c del polinomio de segundo grado
+        double n = x.length;
+        double a = (sum_y * sum_x_squared - sum_x * sum_xy) / (n * sum_x_squared - Math.pow(sum_x, 2));
+        double b = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - Math.pow(sum_x, 2));
+        double c = (sum_y - a * n - b * sum_x) / n;
+
+        // Calcular el coeficiente de correlación r
+        double r_num = n * sum_xy - sum_x * sum_y;
+        double r_den = Math.sqrt((n * sum_x_squared - Math.pow(sum_x, 2)) * (n * sum_y_squared - Math.pow(sum_y, 2)));
+        double r = r_num / r_den;
+
+        // Imprimir los resultados
+        System.out.println("El polinomio de segundo grado ajustado a los datos es: y = " + a + "x^2 + " + b + "x + " + c);
+        System.out.println("El coeficiente de correlación (r) es: " + r);
+    }
+}
