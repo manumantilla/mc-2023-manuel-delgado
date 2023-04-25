@@ -1,0 +1,99 @@
+package casita;
+
+/**
+ *
+ * @author l52
+ */
+public class taller21 {
+    public static void main(String[] args) {
+        double[] x1 = {1,1,2,3,1,2,3,3};
+        double[] x2 = {0,1,1,2,2,3,3,1};
+        double[] y = {3.2, 6, 2.2, 2.5, 6.5, 6.6, 3.5, 0.2};
+        //var
+        double x1_2=0;
+        double x2_2=0;
+        double x1_x2=0;
+        double x1_y=0;
+        double x2_y=0;
+        double x1sum=0;
+        double x2sum=0;
+        double y_sum=0;
+        double prom=0;
+        for(int i=0;i<x1.length;i++){
+            x1sum=x1sum+x1[i];
+            x2sum=x2sum+x2[i];
+            x1_2 = x1_2 + (x1[i]*x1[i]);
+            x1_x2 = x1_x2 + (x1[i]*x2[i]);
+            x2_2 = x2_2 + (x2[i]*x2[i]);
+            x1_y = x1_y + (x1[i]*y[i]);
+            x2_y = x2_y + (x2[i]*y[i]);
+            y_sum = y_sum + y[i];
+            
+        }
+        prom = y_sum/y.length;
+        
+        double[][] A = {{x1.length,x1sum, x2sum, y_sum},
+                        {x1sum, x1_2, x1_x2,x1_y},
+                        {x2sum, x1_x2, x2_2, x2_y}};
+        //resolver
+        
+        int n = A.length;
+        
+        for (int k = 0; k < n; k++) {
+            // PIVOTE
+            int maxFila = k; //Fila encima
+            for (int i = k + 1; i < n; i++) {
+                if (Math.abs(A[i][k]) > Math.abs(A[maxFila][k])) {
+                    maxFila = i;
+                }
+            }
+            
+            // Intercambiar filas dependiendo
+            if (maxFila != k) {
+                double[] temp = A[k];
+                A[k] = A[maxFila];
+                A[maxFila] = temp;
+            }
+            
+            // Cambiar el pivote
+            double pivot = A[k][k];
+            for (int j = k; j < n + 1; j++) {
+                A[k][j] /= pivot;
+            }
+            
+                //Eliminar debajo del pivote
+            for (int i = k + 1; i < n; i++) {
+                double factor = A[i][k];
+                for (int j = k; j < n + 1; j++) {
+                    A[i][j] -= factor * A[k][j];
+                }
+            }
+        }
+        
+        //Sustitucion
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                A[i][n] -= A[i][j] * A[j][n];
+                A[i][j] = 0;
+            }
+        }
+        
+        // Mostrar la solucion de la primer fila l segunda y latercera
+        for (int i = 0; i < n; i++) {
+            System.out.println("a" + (i + 1) + " = " + A[i][n]);
+            
+        }
+         for (int i = 0; i < 1; i++) {
+            //System.out.println("a" + (i + 1) + " = " + A[i][n]);
+            System.out.println("Y = "+A[i][n]+" + "+A[i+1][n]+"X1 - "+A[i+2][n]+"x2");
+        }
+        //hallar st y sr
+        double sr = 0;
+        for(int i=0;i<x1.length;i++){           
+            sr =sr +(y[i]-A[0][n]-A[1][n]*x1[i]-A[2][n]*x2[i])*(y[i]-A[0][n]-A[1][n]*x1[i]-A[2][n]*x2[i]);
+        }
+        System.out.println("Sr es "+sr);
+        
+    }
+         
+}
