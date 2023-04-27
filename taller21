@@ -4,7 +4,7 @@ package casita;
  *
  * @author l52
  */
-public class taller21 {
+public class Cond {
     public static void main(String[] args) {
         double[] x1 = {1,1,2,3,1,2,3,3};
         double[] x2 = {0,1,1,2,2,3,3,1};
@@ -94,6 +94,17 @@ public class taller21 {
         }
         System.out.println("Sr es "+sr);
         
+        double[] yiyprom = {3.2, 6, 2.2, 2.5, 6.5, 6.6, 3.5, 0.2};
+        double ayuda=0;
+        for (int i = 0; i < yiyprom.length; i++) {
+            ayuda += (y[i]-prom)*(y[i]-prom);
+        }
+        double st=ayuda;
+        System.out.println("st es "+st);
+        //hallando r
+        double r=0;
+        r=Math.sqrt((st-sr)/(st))*100;
+        System.out.println("R es "+r+"%");
     }
          
 }
