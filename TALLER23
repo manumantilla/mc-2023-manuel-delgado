@@ -1,0 +1,64 @@
+/**
+ *
+ * @author manue
+ */
+import java.util.Scanner;
+
+public class Lagrange {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Ingresa los puntos
+        /*
+        System.out.print("Ingrese el número de puntos: ");
+        int n = sc.nextInt();
+        */
+        double[] x = {0,1,2,3};
+        double[] y = {1,0.2,2,4.2,5};
+        /*
+        for (int i = 0; i < n; i++) {
+            System.out.print("Ingrese el valor de x" + (i+1) + ": ");
+            x[i] = sc.nextDouble();
+            System.out.print("Ingrese el valor de y" + (i+1) + ": ");
+            y[i] = sc.nextDouble();
+        }*/
+        
+        // Aqui ingresamos el X q nos dan en nuestro caso es 2,5
+        System.out.print("Ingrese el valor de x a estimar: ");
+        double xIngresado = sc.nextDouble();
+        
+        // Estimación para el grado 1, llamamos la funcion q cramos
+        double yEst1 = lagrangeInterpolation(x, y, xIngresado, 1);
+        System.out.println("La estimación para el grado 2 es: " + yEst1);
+        
+        // Estimación para el grado 2, llamamos la funcion q creamos
+        double yEst2 = lagrangeInterpolation(x, y, xIngresado, 2);
+        System.out.println("La estimación para el grado 2 es: " + yEst2);
+        
+        // Estimación para el grado 3, llamamos la funcion q creamos 
+        double yEst3 = lagrangeInterpolation(x, y, xIngresado, 3);
+        System.out.println("La estimación para el grado 1 es: " + yEst3);
+    }
+    //dependiendo de el grado solicitado va ir avanzando en los puntos
+    public static double lagrangeInterpolation(double[] x, double[] y, double xIngresado, int grado) {
+        double yEstimacion = 0;
+        
+        //el primer for es para asignar el primer valor de Y y con este usar la formula
+        for (int i = 0; i <= grado; i++) {
+            double valorY = y[i];
+            //este segundo For es para con la formula ir hallando el valor de Y
+            //pero colcoamos ese if pues segun la formula j tiene q ser diferente de I 
+            for (int j = 0; j <= grado; j++) {
+                if(j!=i){ 
+                    valorY *= (xIngresado - x[j]) / (x[i] - x[j]);
+                }
+               
+            }
+            //sumatoria de los valores de term con todos los puntos de Y
+            yEstimacion += valorY;
+        }
+        
+        return yEstimacion;
+    }
+}
